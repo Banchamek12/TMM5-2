@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>🌈Translate M5</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gradient-to-r from-pink-100 via-purple-100 to-blue-100 min-h-screen flex items-center justify-center p-6 font-[Prompt] relative">
+
+  <!-- 🔁 พื้นหลังวิดีโอ -->
+  <video autoplay muted loop playsinline id="background-video" class="absolute inset-0 w-full h-full object-cover -z-10">
+    <source src="1.mp4" type="video/mp4" />
+    เบราว์เซอร์ของคุณไม่รองรับวิดีโอพื้นหลัง
+  </video>
+
+  <div class="volume-controls">
+  <button onclick="changeVolume(-0.1)">➖ ลดเสียง</button>
+  <button onclick="changeVolume(0.1)">➕ เพิ่มเสียง</button>
+</div>
+
+  <a href="members.html" class="member-button absolute top-4 right-4 bg-black px-4 py-2 rounded-xl shadow font-semibold z-10" title="ดูรายชื่อสมาชิก">👥 MEMBER</a>
+
+  <audio id="bg-music" autoplay loop></audio>
+
+  <div class="bg-white/90 font-[Poppins] backdrop-blur-md rounded-3xl shadow-xl p-8 max-w-xl w-full z-10">
+    <div class="text-center font-bold mb-6">
+      <h1 class="text-3xl font-bold text--700 flex items-center justify-center gap-2">
+        🌈 Translate
+      </h1>
+    </div>
+    <textarea id="inputText" placeholder="พิมพ์ข้อความ..." rows="4"
+      class="w-full p-4 rounded-xl border-2 border-red-200 focus:ring-4 ring-red-300 font-[Kanit] focus:outline-none resize-none bg-white mb-4 text-lg"></textarea>
+
+    <div class="flex gap-4 mb-4">
+      <div class="relative flex-1">
+        <select id="sourceLang" class="appearance-none font-[Sarabun] w-full p-3 pl-12 rounded-xl border bg-white text-black font-semibold">
+          <option value="th">ไทย</option>
+          <option value="eng">อังกฤษ</option>
+          <option value="zh">จีน</option>
+        </select>
+        <img src="https://flagcdn.com/w40/th.png" id="flag-source" class="w-6 h-4 absolute left-3 top-1/2 transform -translate-y-1/2" alt="flag">
+      </div>
+
+      <div class="relative flex-1">
+        <select id="targetLang" class="appearance-none w-full p-3 pl-12 rounded-xl border bg-white text-black font-semibold">
+          <option value="eng">อังกฤษ</option>
+          <option value="zh">จีน</option>
+          <option value="th">ไทย</option>
+        </select>
+        <img src="https://flagcdn.com/w40/en.png" id="flag-target" class="w-6 h-4 absolute left-3 top-1/2 transform -translate-y-1/2" alt="flag">
+      </div>
+    </div>
+
+    <button onclick="translateText()" class="w-full bg-gradient-to-r from-red-500 to-red-500 hover:from-red-600 hover:to-red-600 text-white py-3 rounded-xl text-lg font-bold transition red-300 mb-4">
+      🔁 แปลทันที
+    </button>
+
+    <div class="bg-red-to-r from-red-100 via-red-100 to-red-100 rounded-xl p-4 mb-4 shadow-inner">
+      <p class="text-sm font-semibold text-black-600">ผลลัพธ์</p>
+      <p id="outputText" class="text-xl font-bold text-red900 mt-2"></p>
+    </div>
+
+    <button onclick="speakText()" class="w-full bg-gradient-to-r from-red-400 to-red-500 hover:from-red-500 hover:to-red-600 text-white py-3 rounded-xl text-lg font-bold transition red-300">
+      🔊 ฟังเสียง
+    </button>
+  </div>
+
+  <script>
+    const flagMap = {
+      th: 'https://flagcdn.com/w40/th.png',
+      eng: 'https://flagcdn.com/w40/gb.png',
+      zh: 'https://flagcdn.com/w40/cn.png'
+    };
+
+    document.getElementById('sourceLang').addEventListener('change', (e) => {
+      document.getElementById('flag-source').src = flagMap[e.target.value];
+    });
+
+    document.getElementById('targetLang').addEventListener('change', (e) => {
+      document.getElementById('flag-target').src = flagMap[e.target.value];
+    });
+  </script>
+
+  <script src="m5.js"></script>
+</body>
+</html>
